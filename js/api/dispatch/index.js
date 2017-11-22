@@ -107,6 +107,9 @@ deliveryDispatcher.setHandler(function(delivery, next) {
           type: 'delivery',
           delivery: {
             id: delivery.id,
+            order: {
+              id: delivery.order.id
+            },
             originAddress: delivery.originAddress.position,
             deliveryAddress: delivery.deliveryAddress.position
           }
