@@ -157,3 +157,10 @@ services:
           - "@swiftmailer.transport.eventdispatcher.mailjet"
           - "%mailjet.api_key%"
           - "%mailjet.secret_key%"
+
+  swiftmailer.logger:
+      class: AppBundle\Service\MailLoggerService
+      arguments: ["@logger"]
+      tags:
+        - { name: monolog.logger, channel: mailer }
+        - { name: "swiftmailer.default.plugin" }
