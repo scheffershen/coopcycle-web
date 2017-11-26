@@ -36,3 +36,6 @@ fos_user:
 
 sentry:
     dsn: '%sentry_dsn%'
+
+swiftmailer:
+    transport: mailjet

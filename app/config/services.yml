@@ -147,3 +147,13 @@ services:
     class: Twig_Extensions_Extension_Intl
     tags:
       - { name: twig.extension }
+
+  swiftmailer.transport.eventdispatcher.mailjet:
+    class: Swift_Events_SimpleEventDispatcher
+
+  swiftmailer.mailer.transport.mailjet:
+      class: Mailjet\MailjetSwiftMailer\SwiftMailer\MailjetTransport
+      arguments:
+          - "@swiftmailer.transport.eventdispatcher.mailjet"
+          - "%mailjet.api_key%"
+          - "%mailjet.secret_key%"
