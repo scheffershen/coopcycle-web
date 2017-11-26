@@ -154,6 +154,16 @@ roles.ROLE_COURIER: 'Coursier'
 roles.ROLE_RESTAURANT: 'Restaurant'
 roles.ROLE_USER: 'Utilisateur'
 
+# mail
+registration.email.subject: |
+  Confirmation d'adresse
+registration.email.message: |
+  Bonjour %givenName%,<br><br>
+  Pour confirmer votre email, veuillez cliquer sur le lien suivant <a href="%confirmationUrl%">%confirmationUrl%</a>.<br><br>
+  Bienvenue!<br><br>
+  L'équipe CoopCycle
+
+
 search.help: >
   Cherchez dans les quartiers de Paris : %links%
 

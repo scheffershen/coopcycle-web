@@ -1,0 +1,7 @@
+{%  block subject %}{% trans %}registration.email.subject{% endtrans %}{% endblock %}
+
+{%  block body_html %}
+  {% autoescape false %}
+  {{ 'registration.email.message'|trans({'%givenName%': user.givenName, '%confirmationUrl%': confirmationUrl}) }}
+  {% endautoescape %}
+{%  endblock %}

@@ -37,6 +37,15 @@ cart.modal.content: You started an order in another restaurant. Are you sure you
 cart.modal.confirm: Add
 cart.modal.cancel: Cancel
 
+# mail
+registration.email.subject: |
+  Email confirmation
+registration.email.message: |
+  Hi %givenName%,<br><br>
+  To confirm your email, please click the following link: <a href="%confirmationUrl%">%confirmationUrl%</a>.<br><br>
+  Welcome!<br><br>
+  The CoopCycle team
+
 
 roles.ROLE_ADMIN: 'Administrator'
 roles.ROLE_COURIER: 'Courier'
