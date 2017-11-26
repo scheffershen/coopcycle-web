@@ -18,12 +18,12 @@ class DeliveryType extends AbstractType
         $builder
             ->add('originAddress', AddressType::class)
             ->add('deliveryAddress', AddressType::class)
-            ->add('distance', NumberType::class, ['mapped' => false])
-            ->add('duration', NumberType::class, ['mapped' => false])
             ->add('date', DateType::class, [
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd HH:mm:ss'
-            ]);
+            ])
+            ->add('distance', NumberType::class, ['mapped' => false])
+            ->add('duration', NumberType::class, ['mapped' => false]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

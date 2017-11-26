@@ -3,18 +3,32 @@
 {% form_theme form 'AppBundle:Form:delivery.html.twig' %}
 
 {% block breadcrumb %}
-<li>{% trans %}Deliveries{% endtrans %}</li>
-<li>{% trans %}New{% endtrans %}</li>
+<li><a href="{{ path('admin_deliveries') }}">{% trans %}Deliveries{% endtrans %}</a></li>
+<li>{% trans %}Add{% endtrans %}</li>
 {% endblock %}
 
 {% block content %}
 {{ form_start(form) }}
 
-  {{ form_row(form.originAddress) }}
-  {{ form_row(form.deliveryAddress) }}
+  <div class="row">
+    <div class="col-sm-7">
 
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
+      {{ form_row(form.date) }}
+
+      <div class="well well-sm"><label>{% trans %}Origin address{% endtrans %}</label></div>
+      {{ form_widget(form.originAddress) }}
+
+      <div class="well well-sm"><label>{% trans %}Delivery address{% endtrans %}</label></div>
+      {{ form_widget(form.deliveryAddress) }}
+
+    </div>
+    <div class="col-sm-5">
+      <div class="embed-responsive embed-responsive-4by3">
+        <div class="embed-responsive-item" id="map"></div>
+      </div>
+      <hr>
+
+      <hr>
       <div class="row">
         <div class="col-sm-6">
           {{ form_row(form.distance) }}
@@ -23,24 +37,8 @@
           {{ form_row(form.duration) }}
         </div>
       </div>
-    </div>
-  </div>
-
-  {{ form_row(form.date) }}
-
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-block btn-primary">{% trans %}Save{% endtrans %}</button>
-    </div>
-  </div>
-
-  <hr>
-
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <div class="embed-responsive embed-responsive-16by9">
-        <div class="embed-responsive-item" id="map"></div>
-      </div>
+      <hr>
+      <button type="submit" class="btn btn-block btn-lg btn-primary">{% trans %}Save{% endtrans %}</button>
     </div>
   </div>
 
