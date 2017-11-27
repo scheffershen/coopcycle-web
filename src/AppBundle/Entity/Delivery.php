@@ -132,6 +132,11 @@ class Delivery extends Intangible
      */
     private $price;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $weight;
+
     public function __construct(Order $order = null)
     {
         $this->status = self::STATUS_WAITING;
@@ -301,6 +306,18 @@ class Delivery extends Intangible
     public function setPrice($price)
     {
         $this->price = $price;
+    }
+
+    public function getWeight()
+    {
+        return $this->weight;
+    }
+
+    public function setWeight($weight)
+    {
+        $this->weight = $weight;
+
+        return $this;
     }
 
     public function getActualDuration()
