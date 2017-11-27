@@ -12,9 +12,11 @@ use AppBundle\Entity\Order;
 use AppBundle\Entity\Restaurant;
 use AppBundle\Form\DeliveryType;
 use AppBundle\Form\MenuCategoryType;
+use AppBundle\Form\PricingRuleSetType;
 use AppBundle\Form\RestaurantMenuType;
 use AppBundle\Form\RestaurantType;
 use AppBundle\Form\UpdateProfileType;
+use AppBundle\Utils\PricingRuleSet;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -466,6 +468,39 @@ class AdminController extends Controller
         }
 
         return [
+            'form' => $form->createView(),
+        ];
+    }
+
+    /**
+     * @Route("/admin/deliveries/pricing", name="admin_deliveries_pricing")
+     * @Template
+     */
+    public function deliveriesPricingAction(Request $request)
+    {
+        $rules = $this->getDoctrine()
+            ->getRepository(Delivery\PricingRule::class)
+            ->findAll();
+
+        $ruleSet = new PricingRuleSet($rules);
+
+        $form = $this->createForm(PricingRuleSetType::class, $ruleSet);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $ruleSet = $form->getData();
+
+            $manager = $this->getDoctrine()->getManagerForClass(Delivery\PricingRule::class);
+            foreach ($ruleSet as $rule) {
+                $manager->persist($rule);
+            }
+            $manager->flush();
+
+            return $this->redirectToRoute('admin_deliveries_pricing');
+        }
+
+        return [
+            'rules' => $rules,
             'form' => $form->createView(),
         ];
     }

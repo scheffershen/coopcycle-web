@@ -1,0 +1,14 @@
+{% extends 'bootstrap_3_layout.html.twig' %}
+
+{% block _pricing_rule_set_rules_entry_widget %}
+<div class="form-group row">
+  <div class="col-sm-9">
+    {{ form_label(form.expression) }}
+    {{ form_widget(form.expression, { attr: { placeholder: 'Enter an expression'|trans([], 'messages'), class: 'text-monospace' } }) }}
+  </div>
+  <div class="col-sm-3">
+    {{ form_label(form.price) }}
+    {{ form_widget(form.price) }}
+  </div>
+</div>
+{% endblock %}

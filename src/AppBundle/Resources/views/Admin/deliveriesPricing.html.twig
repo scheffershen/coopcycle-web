@@ -1,0 +1,50 @@
+{% extends "AppBundle::admin.html.twig" %}
+{% form_theme form 'AppBundle:Form:pricingRuleSet.html.twig' %}
+
+{% block breadcrumb %}
+<li>{% trans %}Deliveries{% endtrans %}</li>
+<li>{% trans %}Pricing{% endtrans %}</li>
+{% endblock %}
+
+{% block content %}
+
+  {{ form_start(form) }}
+
+    <ul id="rule-set"
+      data-prototype="{{ form_widget(form.rules.vars.prototype)|e }}">
+      {% for rule in form.rules %}
+      <li>
+          {{ form_errors(rule) }}
+          {{ form_widget(rule) }}
+      </li>
+      {% endfor %}
+    </ul>
+
+    <div class="form-group text-right">
+      <button id="add-pricing-rule" class="btn btn-success">
+        <i class="fa fa-plus"></i> Add rule
+      </button>
+    </div>
+
+    <button type="submit" class="btn btn-block btn-primary">{% trans %}Save{% endtrans %}</button>
+
+  {{ form_end(form) }}
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+$('#add-pricing-rule').on('click', function(e) {
+  e.preventDefault();
+
+  var ruleSet = $('#rule-set');
+
+  var newRule = ruleSet.attr('data-prototype');
+  newRule = newRule.replace(/__name__/g, ruleSet.find('li').length);
+
+  var newLi = $('<li></li>').html(newRule);
+  newLi.appendTo(ruleSet);
+
+});
+</script>
+{% endblock %}
