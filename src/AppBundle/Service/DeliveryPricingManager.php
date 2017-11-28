@@ -8,6 +8,11 @@ class DeliveryPricingManager
 {
     private $rules = [];
 
+    public function __construct(array $rules = [])
+    {
+        $this->rules = $rules;
+    }
+
     public function setRules(array $rules)
     {
         $this->rules = $rules;

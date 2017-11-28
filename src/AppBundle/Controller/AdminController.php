@@ -16,6 +16,7 @@ use AppBundle\Form\PricingRuleSetType;
 use AppBundle\Form\RestaurantMenuType;
 use AppBundle\Form\RestaurantType;
 use AppBundle\Form\UpdateProfileType;
+use AppBundle\Service\DeliveryPricingManager;
 use AppBundle\Utils\PricingRuleSet;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -503,5 +504,23 @@ class AdminController extends Controller
             'rules' => $rules,
             'form' => $form->createView(),
         ];
+    }
+
+    /**
+     * @Route("/admin/deliveries/pricing/calculate", name="admin_deliveries_pricing_calculate")
+     * @Template
+     */
+    public function deliveriesPricingCalculateAction(Request $request)
+    {
+        $rules = $this->getDoctrine()
+            ->getRepository(Delivery\PricingRule::class)
+            ->findAll();
+
+        $pricingManager = new DeliveryPricingManager($rules);
+
+        $delivery = new Delivery();
+        $delivery->setDistance($request->query->get('distance'));
+
+        return new JsonResponse($pricingManager->getPrice($delivery));
     }
 }

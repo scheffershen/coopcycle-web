@@ -30,6 +30,8 @@
             <ul class="dropdown-menu">
               <li class="dropdown-header">Menu</li>
               <li><a href="{{ path('admin_menu_categories') }}">{% trans %}Categories{% endtrans %}</a></li>
+              <li class="dropdown-header">{% trans %}Deliveries{% endtrans %}</li>
+              <li><a href="{{ path('admin_deliveries_pricing') }}">{% trans %}Pricing{% endtrans %}</a></li>
             </ul>
           </li>
           {% endif %}

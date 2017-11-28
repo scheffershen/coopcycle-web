@@ -27,14 +27,13 @@
         <div class="embed-responsive-item" id="map"></div>
       </div>
       <hr>
-
-      <hr>
-      <div class="row">
-        <div class="col-sm-6">
-          {{ form_row(form.distance) }}
+      <div class="form-horizontal">
+        {{ form_row(form.distance) }}
+        {{ form_row(form.duration) }}
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="delivery_price">{% trans %}Price{% endtrans %}</label>
+          <div class="col-sm-10"><p class="form-control-static"><span id="delivery_price"></span></p>
         </div>
-        <div class="col-sm-6">
-          {{ form_row(form.duration) }}
         </div>
       </div>
       <hr>
@@ -46,6 +45,9 @@
 {% endblock %}
 
 {% block scripts %}
+<script>
+window.__deliveries_pricing_calculate_url = "{{ path('admin_deliveries_pricing_calculate') }}"
+</script>
 <script src="{{ asset('js/delivery-form.js') }}"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&libraries=places&callback=initMap"
   async defer></script>

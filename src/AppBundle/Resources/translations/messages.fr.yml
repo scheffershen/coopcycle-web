@@ -110,6 +110,8 @@ Add a restaurant: Ajouter un restaurant
 Restaurants managed by user: Restaurants gérés par l'utilisateur
 Origin address: Adresse de départ
 Delivery address: Adresse de livraison
+Pricing: Tarification
+Add rule: Ajouter une règle
 
 profile.addresses.breadcrumb: Addresses
 profile.addresses.empty: Pas d'adresse sauvegardée pour le moment!

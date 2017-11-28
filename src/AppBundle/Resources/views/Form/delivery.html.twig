@@ -43,14 +43,22 @@
 
 {% block _delivery_distance_row %}
 {% spaceless %}
-  <label class="control-label">{{ translation_domain is same as(false) ? 'Distance' : 'Distance'|trans({}, translation_domain) }}</label>
-  <p class="form-control-static"><span id="delivery_distance"></span></p>
+  <div class="form-group">
+    {{ form_label(form, 'Distance'|trans({}, 'messages')) }}
+    <div class="col-sm-10">
+      <p class="form-control-static"><span id="delivery_distance"></span></p>
+    </div>
+  </div>
 {% endspaceless %}
 {% endblock %}
 
 {% block _delivery_duration_row %}
 {% spaceless %}
-  <label class="control-label">{{ translation_domain is same as(false) ? 'Duration' : 'Duration'|trans({}, translation_domain) }}</label>
-  <p class="form-control-static"><span id="delivery_duration"></span></p>
+  <div class="form-group">
+    {{ form_label(form, 'Duration'|trans({}, 'messages')) }}
+    <div class="col-sm-10">
+      <p class="form-control-static"><span id="delivery_duration"></span></p>
+    </div>
+  </div>
 {% endspaceless %}
 {% endblock %}

@@ -3,6 +3,13 @@ import _ from 'underscore';
 import React from 'react';
 import { render } from 'react-dom';
 import moment from 'moment';
+import Promise from 'promise'
+import numeral  from 'numeral';
+import 'numeral/locales'
+
+const locale = $('html').attr('lang')
+
+numeral.locale(locale)
 
 import DateTimePicker from './DateTimePicker.jsx';
 
@@ -24,14 +31,14 @@ var autocompleteOptions = {
 };
 
 function refreshRouting() {
-  var params = {
+  const params = {
     origin: [originMarker.getLatLng().lat, originMarker.getLatLng().lng].join(','),
     destination: [deliveryMarker.getLatLng().lat, deliveryMarker.getLatLng().lng].join(',')
   };
 
-  fetch('/api/routing/route?origin=' + params.origin + '&destination=' + params.destination)
-    .then((response) => {
-      response.json().then((data) => {
+  fetch('/api/routing/route?' + $.param(params))
+    .then(response => {
+      response.json().then(data => {
 
         var duration = parseInt(data.routes[0].duration, 10);
         var distance = parseInt(data.routes[0].distance, 10);
@@ -41,6 +48,11 @@ function refreshRouting() {
 
         $('#delivery_distance').text(kms + ' Km');
         $('#delivery_duration').text(minutes + ' min');
+
+        $.getJSON(window.__deliveries_pricing_calculate_url, { distance })
+          .then(price => {
+            $('#delivery_price').text(numeral(price).format('$0,0.00'))
+          })
 
         // return decodePolyline(data.routes[0].geometry);
       })
