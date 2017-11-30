@@ -21,9 +21,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
+use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use League\Geotools\Geotools;
 use League\Geotools\Coordinate\Coordinate;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
@@ -468,5 +470,23 @@ class AdminController extends Controller
         return [
             'form' => $form->createView(),
         ];
+    }
+
+    /**
+     * @Route("/admin/orders/{id}/invoice", name="admin_order_invoice")
+     */
+    public function orderInvoiceAction($id, Request $request)
+    {
+        $order = $this->getDoctrine()
+            ->getRepository(Order::class)
+            ->find($id);
+
+        $html = $this->renderView('AppBundle:Order:pdf.html.twig', [
+            'order' => $order
+        ]);
+
+        return new Response($this->get('knp_snappy.pdf')->getOutputFromHtml($html), 200, [
+            'Content-Type' => 'application/pdf',
+        ]);
     }
 }

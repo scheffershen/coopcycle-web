@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Facture</title>
+  </head>
+  <body>
+
+    <table style="width: 100%;">
+      <tbody>
+        <tr>
+            <td><h1>Facture</h1></td>
+            <td style="text-align: right;"><strong>Date</strong> {{ order.createdAt|localizeddate('medium', 'none') }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div>
+      <div style="margin-bottom: 30px; width: 50%; float: left;">
+        <table style="width: 100%;">
+          <tbody>
+            <tr>
+              <td><strong>{{ order.restaurant.name }}</strong></td>
+            </tr>
+            <tr>
+              <td>{{ order.restaurant.address.streetAddress }}</td>
+            </tr>
+            <tr>
+              <td>{{ order.restaurant.address.postalCode }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-bottom: 30px; width: 50%; float: left; text-align: right;">
+        {% set fullName = order.customer.givenName ~ ' ' ~ order.customer.familyName %}
+        <table style="width: 100%;">
+          <tbody>
+            <tr>
+              <td><strong>{{ fullName|trim is not empty ? fullName : order.customer.username }}</strong></td>
+            </tr>
+            <tr>
+              <td>{{ order.delivery.deliveryAddress.streetAddress }}</td>
+            </tr>
+            <tr>
+              <td>{{ order.delivery.deliveryAddress.postalCode }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <hr style="clear: both;">
+
+    <h2>Commande</h2>
+
+    <table style="width: 100%;">
+      <tbody>
+      {% for item in order.orderedItem %}
+        <tr>
+            <td>{{ item.name }} × {{ item.quantity }}</td>
+            <td style="text-align: right;">{{ item.price * item.quantity }} €</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td><strong>Total</strong></td>
+          <td style="text-align: right;">{{ order.total }} €</td>
+        </tr>
+      </tfoot>
+    </table>
+
+  </body>
+</html>
