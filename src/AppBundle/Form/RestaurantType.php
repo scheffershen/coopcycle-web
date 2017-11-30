@@ -29,6 +29,7 @@ class RestaurantType extends AbstractType
     {
         $builder
             ->add('name', TextType::class)
+            ->add('legalName', TextType::class, ['required' => false])
             ->add('website', UrlType::class, ['required' => false])
             ->add('address', AddressType::class)
             ->add('deliveryService', DeliveryServiceType::class, ['mapped' => false])
@@ -36,20 +37,20 @@ class RestaurantType extends AbstractType
                 'required' => false,
                 'download_uri' => false,
             ])
-            // FoodEstablishment
-            ->add('servesCuisine', CollectionType::class, array(
-                'entry_type' => EntityType::class,
-                'entry_options' => array(
-                    'label' => 'Cuisine',
-                    'class' => 'AppBundle:Cuisine',
-                    'choice_label' => 'name',
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('c')->orderBy('c.name', 'ASC');
-                    },
-                ),
-                'allow_add' => true,
-                'allow_delete' => true,
-            ))
+            // // FoodEstablishment
+            // ->add('servesCuisine', CollectionType::class, array(
+            //     'entry_type' => EntityType::class,
+            //     'entry_options' => array(
+            //         'label' => 'Cuisine',
+            //         'class' => 'AppBundle:Cuisine',
+            //         'choice_label' => 'name',
+            //         'query_builder' => function (EntityRepository $er) {
+            //             return $er->createQueryBuilder('c')->orderBy('c.name', 'ASC');
+            //         },
+            //     ),
+            //     'allow_add' => true,
+            //     'allow_delete' => true,
+            // ))
             // LocalBusiness
             ->add('telephone', TextType::class, ['required' => false])
             ->add('openingHours', CollectionType::class, [

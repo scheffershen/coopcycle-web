@@ -52,6 +52,7 @@
     </div>
     <div class="col-sm-8">
       {{ form_row(form.name) }}
+      {{ form_row(form.legalName) }}
       {{ form_row(form.website) }}
       {{ form_row(form.telephone) }}
     </div>
@@ -67,6 +68,7 @@
 
   <hr>
 
+  {#
   <div id="cuisines" data-prototype="{{ form_widget(form.servesCuisine.vars.prototype)|e('html_attr') }}">
     {{ form_label(form.servesCuisine) }}
     {% for cuisine in form.servesCuisine %}
@@ -74,11 +76,11 @@
     {% endfor %}
   </div>
   <button class="btn btn-sm btn-success" data-toggle="add-cuisine" data-target="#cuisines">Ajouter</button>
-  {# http://stackoverflow.com/questions/10570002/how-to-make-form-rest-not-display-a-field-with-symfony2 #}
   {% do form.servesCuisine.setRendered %}
-
   <hr>
+  #}
 
+  <h4>{% trans %}Opening hours{% endtrans %}</h4>
   {{ form_row(form.openingHours) }}
 
   <hr>
@@ -98,6 +100,8 @@
     <div class="row margin-bottom-md">
       <div class="col-md-6">
         {{ form_row(form.contract.minimumCartAmount) }}
+      </div>
+      <div class="col-md-6">
         {{ form_row(form.contract.flatDeliveryPrice) }}
       </div>
     </div>
